@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Box, Typography, Button } from '@mui/material';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/common/Layout';
+import ProtectedRoute from './components/common/ProtectedRoute';
+import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Portfolio from './pages/Portfolio';
 import OrderEntry from './pages/OrderEntry';
@@ -42,67 +45,113 @@ const NotFound = () => (
   </Box>
 );
 
-// Loading Component
-const LoadingPage = () => (
-  <Box
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '60vh',
-    }}
-  >
-    <Typography variant="h6" gutterBottom>
-      Loading...
-    </Typography>
-  </Box>
-);
+// Main App Routes Component
+const AppRoutes = () => {
+  const { login } = useAuth();
+
+  return (
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/login" element={<Login onLogin={login} />} />
+      
+      {/* Protected Routes */}
+      <Route path="/" element={
+        <ProtectedRoute>
+          <Layout>
+            <Dashboard />
+          </Layout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/dashboard" element={<Navigate to="/" replace />} />
+      
+      <Route path="/portfolio" element={
+        <ProtectedRoute>
+          <Layout>
+            <Portfolio />
+          </Layout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/portfolio-summary" element={<Navigate to="/portfolio" replace />} />
+      
+      <Route path="/order-entry" element={
+        <ProtectedRoute>
+          <Layout>
+            <OrderEntry />
+          </Layout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/trading" element={<Navigate to="/order-entry" replace />} />
+      <Route path="/book-trade" element={<Navigate to="/order-entry" replace />} />
+      
+      <Route path="/history" element={
+        <ProtectedRoute>
+          <Layout>
+            <TransactionHistory />
+          </Layout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/transactions" element={<Navigate to="/history" replace />} />
+      <Route path="/transaction-history" element={<Navigate to="/history" replace />} />
+      
+      <Route path="/allocation" element={
+        <ProtectedRoute>
+          <Layout>
+            <AssetAllocation />
+          </Layout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/asset-allocation" element={<Navigate to="/allocation" replace />} />
+      
+      <Route path="/performance" element={
+        <ProtectedRoute>
+          <Layout>
+            <Performance />
+          </Layout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/analytics" element={<Navigate to="/performance" replace />} />
+      
+      <Route path="/reports" element={
+        <ProtectedRoute>
+          <Layout>
+            <Reports />
+          </Layout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/monthly-reports" element={<Navigate to="/reports" replace />} />
+      
+      <Route path="/settings" element={
+        <ProtectedRoute>
+          <Layout>
+            <Settings />
+          </Layout>
+        </ProtectedRoute>
+      } />
+      
+      <Route path="/account" element={<Navigate to="/settings" replace />} />
+      <Route path="/profile" element={<Navigate to="/settings" replace />} />
+      
+      {/* Error Routes */}
+      <Route path="/404" element={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          {/* Main Routes */}
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Navigate to="/" replace />} />
-          
-          {/* Portfolio Management Routes */}
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/portfolio-summary" element={<Navigate to="/portfolio" replace />} />
-          
-          {/* Trading Routes */}
-          <Route path="/order-entry" element={<OrderEntry />} />
-          <Route path="/trading" element={<Navigate to="/order-entry" replace />} />
-          <Route path="/book-trade" element={<Navigate to="/order-entry" replace />} />
-          
-          {/* History & Reports Routes */}
-          <Route path="/history" element={<TransactionHistory />} />
-          <Route path="/transactions" element={<Navigate to="/history" replace />} />
-          <Route path="/transaction-history" element={<Navigate to="/history" replace />} />
-          
-          {/* Analytics Routes */}
-          <Route path="/allocation" element={<AssetAllocation />} />
-          <Route path="/asset-allocation" element={<Navigate to="/allocation" replace />} />
-          <Route path="/performance" element={<Performance />} />
-          <Route path="/analytics" element={<Navigate to="/performance" replace />} />
-          
-          {/* Reports Routes */}
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/monthly-reports" element={<Navigate to="/reports" replace />} />
-          
-          {/* Settings Routes */}
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/account" element={<Navigate to="/settings" replace />} />
-          <Route path="/profile" element={<Navigate to="/settings" replace />} />
-          
-          {/* Error Routes */}
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppRoutes />
+      </Router>
+    </AuthProvider>
   );
 }
 

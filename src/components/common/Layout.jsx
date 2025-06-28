@@ -3,6 +3,7 @@ import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Breadcrumbs from './Breadcrumbs';
+import { useAuth } from '../../context/AuthContext';
 
 // Create a custom theme
 const theme = createTheme({
@@ -36,6 +37,7 @@ const theme = createTheme({
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const { user, logout } = useAuth();
 
   const handleSidebarToggle = () => {
     setSidebarOpen(!sidebarOpen);
@@ -45,12 +47,8 @@ const Layout = ({ children }) => {
     setSidebarOpen(false);
   };
 
-  // Mock user data
-  const user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@abc.com',
-    id: 1
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -64,11 +62,12 @@ const Layout = ({ children }) => {
         />
         
         {/* Main Content */}
-        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', width: '100%' }}>
           {/* Navbar */}
           <Navbar 
             user={user}
             onMenuClick={handleSidebarToggle}
+            onLogout={handleLogout}
           />
           
           {/* Page Content */}
@@ -78,9 +77,11 @@ const Layout = ({ children }) => {
               flexGrow: 1,
               p: 3,
               backgroundColor: '#f5f5f5',
-              minHeight: 'calc(100vh - 64px)', // Subtract navbar height
+              minHeight: 'calc(100vh - 70px)', // Subtract navbar height
               marginLeft: sidebarOpen ? '280px' : 0,
               transition: 'margin-left 0.3s ease',
+              width: '100%',
+              boxSizing: 'border-box',
             }}
           >
             {/* Breadcrumbs */}
