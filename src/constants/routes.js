@@ -7,6 +7,7 @@ export const ROUTES = {
   // Portfolio routes
   PORTFOLIO: '/portfolio',
   PORTFOLIO_SUMMARY: '/portfolio-summary',
+  DATA_DISPLAY: '/data-display',
   
   // Trading routes
   ORDER_ENTRY: '/order-entry',
@@ -47,6 +48,12 @@ export const ROUTE_METADATA = {
     title: 'Portfolio Summary',
     description: 'Portfolio Details & Holdings',
     icon: 'AccountBalance',
+    requiresAuth: true
+  },
+  [ROUTES.DATA_DISPLAY]: {
+    title: 'Data Display',
+    description: 'View Mock Data',
+    icon: 'DataObject',
     requiresAuth: true
   },
   [ROUTES.ORDER_ENTRY]: {
@@ -100,6 +107,12 @@ export const NAVIGATION_ITEMS = [
     title: 'Portfolio Summary',
     description: 'Portfolio Details & Holdings',
     icon: 'AccountBalance'
+  },
+  {
+    path: ROUTES.DATA_DISPLAY,
+    title: 'Data Display',
+    description: 'View Mock Data',
+    icon: 'DataObject'
   },
   {
     path: ROUTES.ORDER_ENTRY,

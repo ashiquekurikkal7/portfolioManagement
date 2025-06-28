@@ -7,6 +7,7 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Portfolio from './pages/Portfolio';
+import DataDisplay from './components/DataDisplay';
 import OrderEntry from './pages/OrderEntry';
 import TransactionHistory from './pages/TransactionHistory';
 import AssetAllocation from './pages/AssetAllocation';
@@ -74,6 +75,14 @@ const AppRoutes = () => {
       } />
       
       <Route path="/portfolio-summary" element={<Navigate to="/portfolio" replace />} />
+      
+      <Route path="/data-display" element={
+        <ProtectedRoute>
+          <Layout>
+            <DataDisplay />
+          </Layout>
+        </ProtectedRoute>
+      } />
       
       <Route path="/order-entry" element={
         <ProtectedRoute>
