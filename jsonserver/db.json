@@ -1,0 +1,100 @@
+{
+  "USER_DETAIL": [
+    {
+      "id": 1,
+      "first_name": "Alice",
+      "last_name": "Johnson",
+      "email_address": "alice@example.com",
+      "created_on": "2025-06-01T10:00:00Z",
+      "created_by": "admin",
+      "modified_on": "2025-06-10T11:00:00Z",
+      "modified_by": "admin"
+    }
+  ],
+  "USER_LOGIN_DETAIL": [
+    {
+      "id": 1,
+      "id_user_detail": 1,
+      "first_name": "Alice",
+      "last_name": "Johnson",
+      "email_address": "alice@example.com",
+      "user_status": "active",
+      "created_on": "2025-06-01T10:00:00Z",
+      "created_by": "admin",
+      "modified_on": "2025-06-10T11:00:00Z",
+      "modified_by": "admin"
+    }
+  ],
+  "SECURITY_DETAIL": [
+    {
+      "id": 1,
+      "security_name": "Alpha Fund",
+      "value": 100
+    },
+    {
+      "id": 2,
+      "security_name": "Beta Equity",
+      "value": 200
+    }
+  ],
+  "ORDER_DETAIL": [
+    {
+      "id": 1,
+      "id_security_detail": 1,
+      "order_ref_no": "ORD12345",
+      "order_status": "Executed",
+      "transaction_type": "Buy",
+      "order_value": "1000",
+      "created_on": "2025-06-20T09:00:00Z",
+      "created_by": 1
+    },
+    {
+      "id": 2,
+      "id_security_detail": 2,
+      "order_ref_no": "ORD67890",
+      "order_status": "Completed",
+      "transaction_type": "Sell",
+      "order_value": "2000",
+      "created_on": "2025-06-22T14:30:00Z",
+      "created_by": 1
+    }
+  ],
+  "ACCOUNT_DETAIL": [
+    {
+      "id": 1,
+      "id_user_login_detail": 1,
+      "credit": 3000,
+      "debit": 1000,
+      "running_balance": 10000,
+      "id_order_detail": 1,
+      "created_on": "2025-06-20T10:00:00Z",
+      "created_by": 1
+    }
+  ],
+  "AUDIT_USER_LOGIN": [
+    {
+      "id": 1,
+      "id_user_login_detail": 1,
+      "session_id": "session-xyz-001",
+      "login_status": "success",
+      "login_date_time": "2025-06-20T09:00:00Z",
+      "logout_date_time": "2025-06-20T18:00:00Z"
+    }
+  ],
+  "AUDIT_ACTION": [
+    {
+      "id": 1,
+      "id_user_login_detail": 1,
+      "user_action": "View Portfolio Summary",
+      "start_date_time": "2025-06-21T10:00:00Z",
+      "end_date_time": "2025-06-21T10:05:00Z"
+    },
+    {
+      "id": 2,
+      "id_user_login_detail": 1,
+      "user_action": "Submit Order",
+      "start_date_time": "2025-06-22T14:00:00Z",
+      "end_date_time": "2025-06-22T14:02:00Z"
+    }
+  ]
+}
