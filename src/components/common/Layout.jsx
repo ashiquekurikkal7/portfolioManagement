@@ -5,7 +5,6 @@ import Sidebar from './Sidebar';
 import Breadcrumbs from './Breadcrumbs';
 import { useAuth } from '../../context/AuthContext';
 
-// Create a custom theme
 const theme = createTheme({
   palette: {
     primary: {
@@ -62,7 +61,7 @@ const Layout = ({ children }) => {
         />
         
         {/* Main Content */}
-        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', width: '100%' }}>
+        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', width: '100%'}}>
           {/* Navbar */}
           <Navbar 
             user={user}

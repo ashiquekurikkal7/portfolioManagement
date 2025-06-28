@@ -25,6 +25,7 @@ import {
   Speed
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { apiGet } from '../api/apiMethords';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const Login = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [userData, setUserData] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,28 +66,21 @@ const Login = ({ onLogin }) => {
 
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      if (formData.email === 'admin@abc.com' && formData.password === 'password123') {
-        const user = {
-          id: 1,
-          firstName: 'John',
-          lastName: 'Doe',
-          email: formData.email,
-          role: 'Portfolio Manager',
-          avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
-        };
-        
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('isAuthenticated', 'true');
-        
-        onLogin(user);
-        navigate('/');
-      } else {
-        setError('Invalid email or password. Use admin@abc.com / password123');
-      }
-    } catch (error) {
-      setError('Login failed. Please try again.');
+      apiGet('/USER_DETAIL')
+      .then((result) => {
+        if (!result.error) {
+          setUserData(result.data[0])
+          console.log('Data:', userData);
+        } else {
+          console.error('Error:', result.message);
+        }
+      });
+      navigate('/');
+      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('isAuthenticated', 'true');
+      onLogin(userData);
+    } catch (err) {
+      setError(err);
     } finally {
       setLoading(false);
     }
@@ -117,7 +112,6 @@ const Login = ({ onLogin }) => {
         }
       }}
     >
-      {/* Animated background elements */}
       <Box
         sx={{
           position: 'absolute',
@@ -417,32 +411,6 @@ const Login = ({ onLogin }) => {
                 </form>
 
                 {/* Demo Credentials */}
-                <Box 
-                  sx={{ 
-                    mt: 4, 
-                    p: 3, 
-                    bgcolor: 'grey.50', 
-                    borderRadius: 2,
-                    border: '1px solid rgba(0,0,0,0.1)'
-                  }}
-                >
-                  <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                    <strong>Demo Credentials:</strong>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Email: admin@abc.com
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Password: password123
-                  </Typography>
-                </Box>
-
-                {/* Footer */}
-                <Box sx={{ mt: 3, textAlign: 'center' }}>
-                  <Typography variant="body2" color="text.secondary">
-                    © 2024 ABC Portfolio Management System
-                  </Typography>
-                </Box>
               </Paper>
             </Box>
           </Slide>
