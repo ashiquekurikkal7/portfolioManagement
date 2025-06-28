@@ -27,7 +27,7 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '../hooks/useNavigation';
-import { ApiService, formatCurrency, formatPercentage, getChangeColor } from '../services';
+import { apiService, formatCurrency, formatPercentage, getChangeColor } from '../services';
 
 const Performance = () => {
   const { user } = useAuth();
@@ -45,7 +45,7 @@ const Performance = () => {
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        const data = await ApiService.getPortfolioSummary(user?.id || 1);
+        const data = await apiService.getPortfolioSummary(user?.id || 1);
         setPortfolioData(data);
         
       } catch (err) {

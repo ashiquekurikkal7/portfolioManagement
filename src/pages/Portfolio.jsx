@@ -48,7 +48,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '../hooks/useNavigation';
 import {
-  ApiService,
+  apiService,
   formatCurrency,
   formatPercentage,
   formatNumber,
@@ -120,8 +120,8 @@ const Portfolio = () => {
     const loadValidationData = async () => {
       try {
         const [securities, orders] = await Promise.all([
-          ApiService.getSecurities(),
-          ApiService.getOrders()
+          apiService.getSecurities(),
+          apiService.getOrders()
         ]);
         // Note: In a real app, you'd store these in state
         // For now, we'll handle validation differently
@@ -237,11 +237,11 @@ const Portfolio = () => {
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        const data = await ApiService.getPortfolioSummary(user?.id || 1);
+        const data = await apiService.getPortfolioSummary(user?.id || 1);
         setPortfolioData(data);
         
         // Load transaction history by default
-        const transactionData = await ApiService.getTransactionHistory();
+        const transactionData = await apiService.getTransactionHistory();
         setTransactionHistory(transactionData);
         
         // Log data for debugging
@@ -286,18 +286,18 @@ const Portfolio = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Log audit action
-      await ApiService.logUserAction(
+      await apiService.logUserAction(
         user?.id || 1, 
         'PORTFOLIO_SUMMARY_SEARCH', 
         `Searched portfolio with filters: ${JSON.stringify(filters)}`
       );
       
       // Get portfolio data with filters
-      const portfolioData = await ApiService.getPortfolioSummary(user?.id || 1, filters);
+      const portfolioData = await apiService.getPortfolioSummary(user?.id || 1, filters);
       setPortfolioData(portfolioData);
       
       // Get transaction history
-      const transactionData = await ApiService.getTransactionHistory(filters);
+      const transactionData = await apiService.getTransactionHistory(filters);
       setTransactionHistory(transactionData);
       
     } catch (err) {
@@ -355,7 +355,7 @@ const Portfolio = () => {
 
   // Get holding transactions
   const getHoldingTransactions = (securityId) => {
-    return ApiService.getTransactionHistory().filter(
+    return apiService.getTransactionHistory().filter(
       transaction => transaction.idSecurityDetail === securityId
     );
   };
@@ -393,7 +393,7 @@ const Portfolio = () => {
             startIcon={<HistoryIcon />}
             onClick={async () => {
               try {
-                const transactionData = await ApiService.getTransactionHistory();
+                const transactionData = await apiService.getTransactionHistory();
                 setTransactionHistory(transactionData);
                 alert(`Loaded ${transactionData.length} transaction records.`);
               } catch (error) {
@@ -795,7 +795,7 @@ const Portfolio = () => {
                 startIcon={<HistoryIcon />}
                 onClick={async () => {
                   try {
-                    const transactionData = await ApiService.getTransactionHistory();
+                    const transactionData = await apiService.getTransactionHistory();
                     setTransactionHistory(transactionData);
                     alert(`Loaded ${transactionData.length} transaction records.`);
                   } catch (error) {

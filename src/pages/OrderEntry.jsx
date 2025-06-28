@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Card, CardContent, Grid, TextField, FormControl, InputLabel, Select, MenuItem, Button, Alert } from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid, TextField, FormControl, InputLabel, Select, MenuItem, Button, Alert, CircularProgress, Chip } from '@mui/material';
 import { ShoppingCart as BuyIcon, Sell as SellIcon } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '../hooks/useNavigation';
-import { ApiService, formatCurrency, TRANSACTION_TYPE } from '../services';
+import { apiService, formatCurrency, TRANSACTION_TYPE } from '../services';
 
 const OrderEntry = () => {
   const { user } = useAuth();
@@ -26,7 +26,7 @@ const OrderEntry = () => {
     const loadSecurities = async () => {
       try {
         setLoading(true);
-        const data = await ApiService.getSecurities();
+        const data = await apiService.getSecurities();
         setSecurities(data);
       } catch (err) {
         setError('Failed to load securities');

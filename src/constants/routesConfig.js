@@ -10,6 +10,7 @@ const Performance = lazy(() => import('../pages/Performance'));
 const Reports = lazy(() => import('../pages/Reports'));
 const Settings = lazy(() => import('../pages/Settings'));
 const DataDisplay = lazy(() => import('../components/DataDisplay'));
+const SystemMonitor = lazy(() => import('../pages/SystemMonitor'));
 
 // Route configuration for protected routes
 export const routes = [
@@ -85,6 +86,13 @@ export const routes = [
     icon: 'TableChart',
     order: 9,
     hidden: true // Hidden from navigation but accessible
+  },
+  {
+    path: '/system-monitor',
+    component: SystemMonitor,
+    title: 'System Monitor',
+    icon: 'Monitor',
+    order: 10
   }
 ];
 

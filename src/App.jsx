@@ -1,11 +1,16 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/common/Layout';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import ErrorBoundary from './components/common/ErrorBoundary';
 import NotFound from './pages/NotFound';
 import { routes, redirects } from './constants/routesConfig';
+import { securityService } from './services/securityService';
+import { auditService } from './services/auditService';
 
 // Loading component for lazy-loaded routes
 const LoadingFallback = () => (
@@ -19,44 +24,20 @@ const LoadingFallback = () => (
   </Box>
 );
 
-// Error Boundary component
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true, error };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <Box sx={{ p: 3, textAlign: 'center' }}>
-          <h2>Something went wrong.</h2>
-          <p>Please refresh the page and try again.</p>
-          <button onClick={() => window.location.reload()}>
-            Refresh Page
-          </button>
-        </Box>
-      );
-    }
-
-    return this.props.children;
-  }
-}
-
-// Lazy load Login component
-const Login = React.lazy(() => import('./pages/Login'));
-
 // Main App Routes Component
 const AppRoutes = () => {
   const { login } = useAuth();
+
+  // Initialize security monitoring
+  useEffect(() => {
+    securityService.startSecurityMonitoring();
+    
+    // Log application start
+    auditService.logSystemEvent('APPLICATION_START', {
+      version: '1.0.0',
+      timestamp: new Date().toISOString()
+    });
+  }, []);
 
   return (
     <ErrorBoundary>
@@ -105,13 +86,18 @@ const AppRoutes = () => {
   );
 };
 
+// Lazy load Login component
+const Login = React.lazy(() => import('./pages/Login'));
+
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <AppRoutes />
-      </Router>
-    </AuthProvider>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <AuthProvider>
+        <Router>
+          <AppRoutes />
+        </Router>
+      </AuthProvider>
+    </LocalizationProvider>
   );
 }
 
