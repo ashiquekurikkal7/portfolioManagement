@@ -115,6 +115,17 @@ export const getChangeColor = (value) => {
 
 // Calculate portfolio metrics
 export const calculatePortfolioMetrics = (portfolioItems) => {
+  // Ensure portfolioItems is an array
+  if (!Array.isArray(portfolioItems)) {
+    return {
+      totalValue: 0,
+      totalCost: 0,
+      totalGainLoss: 0,
+      totalGainLossPercent: 0,
+      itemCount: 0
+    };
+  }
+
   const totalValue = portfolioItems.reduce((sum, item) => sum + item.currentValue, 0);
   const totalCost = portfolioItems.reduce((sum, item) => sum + item.totalValue, 0);
   const totalGainLoss = totalValue - totalCost;

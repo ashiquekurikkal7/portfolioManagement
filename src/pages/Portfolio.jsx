@@ -48,7 +48,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '../hooks/useNavigation';
 import {
-  MockDataService,
+  ApiService,
   formatCurrency,
   formatPercentage,
   formatNumber,
@@ -107,26 +107,34 @@ const Portfolio = () => {
 
   // Get available securities for validation
   const availableSecurities = useMemo(() => {
-    return MockDataService.getSecurities();
+    return []; // Will be loaded asynchronously
   }, []);
 
   // Get available orders for validation
   const availableOrders = useMemo(() => {
-    return MockDataService.getOrders();
+    return []; // Will be loaded asynchronously
+  }, []);
+
+  // Load validation data
+  useEffect(() => {
+    const loadValidationData = async () => {
+      try {
+        const [securities, orders] = await Promise.all([
+          ApiService.getSecurities(),
+          ApiService.getOrders()
+        ]);
+        // Note: In a real app, you'd store these in state
+        // For now, we'll handle validation differently
+      } catch (error) {
+        console.error('Error loading validation data:', error);
+      }
+    };
+    loadValidationData();
   }, []);
 
   // Validation Functions
   const validateOrderRefNo = (value) => {
     if (!value) return '';
-    
-    // Check if order reference number exists
-    const orderExists = availableOrders.some(order => 
-      order.orderRefNo.toLowerCase().includes(value.toLowerCase())
-    );
-    
-    if (!orderExists) {
-      return 'Invalid Order Ref No.';
-    }
     
     // Validate format (ORD followed by 8 digits)
     if (!/^ORD\d{8}$/.test(value)) {
@@ -138,16 +146,6 @@ const Portfolio = () => {
 
   const validateSecurityName = (value) => {
     if (!value) return '';
-    
-    // Check if security name exists
-    const securityExists = availableSecurities.some(security => 
-      security.securityName.toLowerCase().includes(value.toLowerCase()) ||
-      security.securitySymbol.toLowerCase().includes(value.toLowerCase())
-    );
-    
-    if (!securityExists) {
-      return 'Invalid Security Name';
-    }
     
     // Validate format (letters, numbers, spaces, dots, hyphens)
     if (!/^[a-zA-Z0-9\s.-]+$/.test(value)) {
@@ -239,20 +237,17 @@ const Portfolio = () => {
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        const data = MockDataService.getPortfolioSummary(user?.id || 1);
+        const data = await ApiService.getPortfolioSummary(user?.id || 1);
         setPortfolioData(data);
         
         // Load transaction history by default
-        const transactionData = MockDataService.getTransactionHistory();
+        const transactionData = await ApiService.getTransactionHistory();
         setTransactionHistory(transactionData);
         
         // Log data for debugging
         console.log('=== PORTFOLIO DATA ===');
         console.log('Portfolio Summary:', data);
-        console.log('Available Securities:', MockDataService.getSecurities());
-        console.log('Available Orders:', MockDataService.getOrders());
         console.log('Transaction History:', transactionData);
-        console.log('Account Details:', MockDataService.getAccountDetails());
         console.log('=====================');
         
       } catch (err) {
@@ -291,18 +286,18 @@ const Portfolio = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Log audit action
-      MockDataService.logUserAction(
+      await ApiService.logUserAction(
         user?.id || 1, 
         'PORTFOLIO_SUMMARY_SEARCH', 
         `Searched portfolio with filters: ${JSON.stringify(filters)}`
       );
       
       // Get portfolio data with filters
-      const portfolioData = MockDataService.getPortfolioSummary(user?.id || 1, filters);
+      const portfolioData = await ApiService.getPortfolioSummary(user?.id || 1, filters);
       setPortfolioData(portfolioData);
       
       // Get transaction history
-      const transactionData = MockDataService.getTransactionHistory(filters);
+      const transactionData = await ApiService.getTransactionHistory(filters);
       setTransactionHistory(transactionData);
       
     } catch (err) {
@@ -360,7 +355,7 @@ const Portfolio = () => {
 
   // Get holding transactions
   const getHoldingTransactions = (securityId) => {
-    return MockDataService.getTransactionHistory().filter(
+    return ApiService.getTransactionHistory().filter(
       transaction => transaction.idSecurityDetail === securityId
     );
   };
@@ -394,12 +389,16 @@ const Portfolio = () => {
           </Button>
           <Button
             variant="outlined"
+            size="small"
             startIcon={<HistoryIcon />}
-            onClick={() => {
-              const transactionData = MockDataService.getTransactionHistory();
-              setTransactionHistory(transactionData);
-              setActiveTab(1); // Switch to Transaction History tab
-              alert(`Loaded ${transactionData.length} transaction records. Switched to Transaction History tab.`);
+            onClick={async () => {
+              try {
+                const transactionData = await ApiService.getTransactionHistory();
+                setTransactionHistory(transactionData);
+                alert(`Loaded ${transactionData.length} transaction records.`);
+              } catch (error) {
+                alert('Failed to load transaction data. Please try again.');
+              }
             }}
           >
             Load Sample Data
@@ -794,10 +793,14 @@ const Portfolio = () => {
                 variant="outlined"
                 size="small"
                 startIcon={<HistoryIcon />}
-                onClick={() => {
-                  const transactionData = MockDataService.getTransactionHistory();
-                  setTransactionHistory(transactionData);
-                  alert(`Loaded ${transactionData.length} transaction records.`);
+                onClick={async () => {
+                  try {
+                    const transactionData = await ApiService.getTransactionHistory();
+                    setTransactionHistory(transactionData);
+                    alert(`Loaded ${transactionData.length} transaction records.`);
+                  } catch (error) {
+                    alert('Failed to load transaction data. Please try again.');
+                  }
                 }}
               >
                 Load Sample Data

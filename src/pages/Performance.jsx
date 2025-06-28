@@ -27,7 +27,7 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '../hooks/useNavigation';
-import { MockDataService, formatCurrency, formatPercentage, getChangeColor } from '../services';
+import { ApiService, formatCurrency, formatPercentage, getChangeColor } from '../services';
 
 const Performance = () => {
   const { user } = useAuth();
@@ -45,7 +45,7 @@ const Performance = () => {
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        const data = MockDataService.getPortfolioSummary(user?.id || 1);
+        const data = await ApiService.getPortfolioSummary(user?.id || 1);
         setPortfolioData(data);
         
       } catch (err) {
@@ -61,23 +61,23 @@ const Performance = () => {
 
   // Calculate performance metrics
   const performanceMetrics = {
-    totalValue: portfolioData.reduce((sum, item) => sum + item.currentValue, 0),
-    totalCost: portfolioData.reduce((sum, item) => sum + item.totalValue, 0),
-    totalGainLoss: portfolioData.reduce((sum, item) => sum + (item.currentValue - item.totalValue), 0),
-    totalGainLossPercent: portfolioData.reduce((sum, item) => sum + item.totalValue, 0) > 0 
+    totalValue: Array.isArray(portfolioData) ? portfolioData.reduce((sum, item) => sum + item.currentValue, 0) : 0,
+    totalCost: Array.isArray(portfolioData) ? portfolioData.reduce((sum, item) => sum + item.totalValue, 0) : 0,
+    totalGainLoss: Array.isArray(portfolioData) ? portfolioData.reduce((sum, item) => sum + (item.currentValue - item.totalValue), 0) : 0,
+    totalGainLossPercent: Array.isArray(portfolioData) && portfolioData.reduce((sum, item) => sum + item.totalValue, 0) > 0 
       ? (portfolioData.reduce((sum, item) => sum + (item.currentValue - item.totalValue), 0) / 
          portfolioData.reduce((sum, item) => sum + item.totalValue, 0)) * 100 
       : 0,
-    bestPerformer: portfolioData.reduce((best, item) => {
+    bestPerformer: Array.isArray(portfolioData) ? portfolioData.reduce((best, item) => {
       const gainLoss = item.currentValue - item.totalValue;
       const gainLossPercent = item.totalValue > 0 ? (gainLoss / item.totalValue) * 100 : 0;
       return !best || gainLossPercent > best.gainLossPercent ? { ...item, gainLoss, gainLossPercent } : best;
-    }, null),
-    worstPerformer: portfolioData.reduce((worst, item) => {
+    }, null) : null,
+    worstPerformer: Array.isArray(portfolioData) ? portfolioData.reduce((worst, item) => {
       const gainLoss = item.currentValue - item.totalValue;
       const gainLossPercent = item.totalValue > 0 ? (gainLoss / item.totalValue) * 100 : 0;
       return !worst || gainLossPercent < worst.gainLossPercent ? { ...item, gainLoss, gainLossPercent } : worst;
-    }, null)
+    }, null) : null
   };
 
   if (loading) {
@@ -204,7 +204,7 @@ const Performance = () => {
                     Holdings
                   </Typography>
                   <Typography variant="h4" fontWeight="bold">
-                    {portfolioData.length}
+                    {Array.isArray(portfolioData) ? portfolioData.length : 0}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Securities
@@ -295,7 +295,7 @@ const Performance = () => {
             Individual Security Performance
           </Typography>
           
-          {portfolioData.length === 0 ? (
+          {!Array.isArray(portfolioData) || portfolioData.length === 0 ? (
             <Box textAlign="center" py={4}>
               <Typography variant="body1" color="text.secondary">
                 No portfolio data available. Please add some holdings to see performance analytics.

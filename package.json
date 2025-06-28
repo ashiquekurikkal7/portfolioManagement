@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "json-server": "json-server --watch db.json --port 3001",
+    "dev:all": "concurrently \"npm run dev\" \"npm run json-server\""
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -29,10 +31,12 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.5.2",
+    "concurrently": "^9.2.0",
     "eslint": "^9.29.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.2.0",
+    "json-server": "^1.0.0-beta.3",
     "vite": "^5.4.10"
   }
 }

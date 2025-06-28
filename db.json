@@ -1,0 +1,380 @@
+{
+  "userDetails": [
+    {
+      "id": "1",
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailAddress": "john.doe@example.com",
+      "createdOn": "2024-01-01T00:00:00Z",
+      "createdBy": 1,
+      "modifiedOn": null,
+      "modifiedBy": null
+    },
+    {
+      "id": "2",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emailAddress": "jane.smith@example.com",
+      "createdOn": "2024-01-02T00:00:00Z",
+      "createdBy": 1,
+      "modifiedOn": null,
+      "modifiedBy": null
+    }
+  ],
+  "userLoginDetails": [
+    {
+      "id": "1",
+      "idUserDetail": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailAddress": "john.doe@example.com",
+      "userStatus": "Active",
+      "createdOn": "2024-01-01T00:00:00Z",
+      "createdBy": 1,
+      "modifiedOn": null,
+      "modifiedBy": null
+    },
+    {
+      "id": "2",
+      "idUserDetail": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emailAddress": "jane.smith@example.com",
+      "userStatus": "Active",
+      "createdOn": "2024-01-02T00:00:00Z",
+      "createdBy": 1,
+      "modifiedOn": null,
+      "modifiedBy": null
+    }
+  ],
+  "securityDetails": [
+    {
+      "id": "1",
+      "securityName": "Apple Inc.",
+      "securitySymbol": "AAPL",
+      "value": 175.5,
+      "currentPrice": 175.5,
+      "changePercent": 2.1,
+      "changeValue": 3.6
+    },
+    {
+      "id": "2",
+      "securityName": "Microsoft Corporation",
+      "securitySymbol": "MSFT",
+      "value": 325.25,
+      "currentPrice": 325.25,
+      "changePercent": 1.8,
+      "changeValue": 5.75
+    },
+    {
+      "id": "3",
+      "securityName": "Alphabet Inc.",
+      "securitySymbol": "GOOGL",
+      "value": 245.75,
+      "currentPrice": 245.75,
+      "changePercent": -0.5,
+      "changeValue": -1.25
+    },
+    {
+      "id": "4",
+      "securityName": "Amazon.com Inc.",
+      "securitySymbol": "AMZN",
+      "value": 2750,
+      "currentPrice": 2750,
+      "changePercent": 3.2,
+      "changeValue": 85
+    },
+    {
+      "id": "5",
+      "securityName": "Tesla Inc.",
+      "securitySymbol": "TSLA",
+      "value": 92.55,
+      "currentPrice": 92.55,
+      "changePercent": -1.2,
+      "changeValue": -1.15
+    },
+    {
+      "id": "6",
+      "securityName": "Netflix Inc.",
+      "securitySymbol": "NFLX",
+      "value": 485,
+      "currentPrice": 485,
+      "changePercent": -0.8,
+      "changeValue": -3.9
+    }
+  ],
+  "orderDetails": [
+    {
+      "id": "1",
+      "idSecurityDetail": 1,
+      "orderRefNo": "ORD20240101",
+      "orderStatus": "Completed",
+      "transactionType": "Buy",
+      "orderValue": 1755,
+      "quantity": 10,
+      "orderDate": "2024-01-15T09:30:00Z",
+      "createdOn": "2024-01-15T09:30:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "2",
+      "idSecurityDetail": 2,
+      "orderRefNo": "ORD20240102",
+      "orderStatus": "Completed",
+      "transactionType": "Buy",
+      "orderValue": 2602,
+      "quantity": 8,
+      "orderDate": "2024-01-14T14:15:00Z",
+      "createdOn": "2024-01-14T14:15:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "3",
+      "idSecurityDetail": 3,
+      "orderRefNo": "ORD20240103",
+      "orderStatus": "Completed",
+      "transactionType": "Buy",
+      "orderValue": 1228.75,
+      "quantity": 5,
+      "orderDate": "2024-01-13T11:45:00Z",
+      "createdOn": "2024-01-13T11:45:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "4",
+      "idSecurityDetail": 4,
+      "orderRefNo": "ORD20240104",
+      "orderStatus": "Submitted",
+      "transactionType": "Buy",
+      "orderValue": 2750,
+      "quantity": 1,
+      "orderDate": "2024-01-16T10:00:00Z",
+      "createdOn": "2024-01-16T10:00:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "5",
+      "idSecurityDetail": 5,
+      "orderRefNo": "ORD20240105",
+      "orderStatus": "Executed",
+      "transactionType": "Sell",
+      "orderValue": 185.25,
+      "quantity": 2,
+      "orderDate": "2024-01-16T13:30:00Z",
+      "createdOn": "2024-01-16T13:30:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "6",
+      "idSecurityDetail": 6,
+      "orderRefNo": "ORD20240106",
+      "orderStatus": "Cancelled",
+      "transactionType": "Buy",
+      "orderValue": 901.5,
+      "quantity": 2,
+      "orderDate": "2024-01-16T15:20:00Z",
+      "createdOn": "2024-01-16T15:20:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "7",
+      "idSecurityDetail": 1,
+      "orderRefNo": "ORD20240107",
+      "orderStatus": "Executed",
+      "transactionType": "Sell",
+      "orderValue": 1800,
+      "quantity": 10,
+      "orderDate": "2024-01-17T10:15:00Z",
+      "createdOn": "2024-01-17T10:15:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "8",
+      "idSecurityDetail": 2,
+      "orderRefNo": "ORD20240108",
+      "orderStatus": "Completed",
+      "transactionType": "Buy",
+      "orderValue": 1500,
+      "quantity": 5,
+      "orderDate": "2024-01-17T14:30:00Z",
+      "createdOn": "2024-01-17T14:30:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "9",
+      "idSecurityDetail": 3,
+      "orderRefNo": "ORD20240109",
+      "orderStatus": "Executed",
+      "transactionType": "Sell",
+      "orderValue": 600,
+      "quantity": 2,
+      "orderDate": "2024-01-18T09:45:00Z",
+      "createdOn": "2024-01-18T09:45:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "10",
+      "idSecurityDetail": 4,
+      "orderRefNo": "ORD20240110",
+      "orderStatus": "Completed",
+      "transactionType": "Buy",
+      "orderValue": 2800,
+      "quantity": 1,
+      "orderDate": "2024-01-18T16:20:00Z",
+      "createdOn": "2024-01-18T16:20:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "11",
+      "idSecurityDetail": 5,
+      "orderRefNo": "ORD20240111",
+      "orderStatus": "Executed",
+      "transactionType": "Buy",
+      "orderValue": 450,
+      "quantity": 5,
+      "orderDate": "2024-01-19T11:10:00Z",
+      "createdOn": "2024-01-19T11:10:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "12",
+      "idSecurityDetail": 6,
+      "orderRefNo": "ORD20240112",
+      "orderStatus": "Completed",
+      "transactionType": "Sell",
+      "orderValue": 950,
+      "quantity": 2,
+      "orderDate": "2024-01-19T15:45:00Z",
+      "createdOn": "2024-01-19T15:45:00Z",
+      "createdBy": 1
+    }
+  ],
+  "accountDetails": [
+    {
+      "id": "1",
+      "idUserLoginDetail": 1,
+      "credit": 10000,
+      "debit": 0,
+      "runningBalance": 10000,
+      "idOrderDetail": null,
+      "createdOn": "2024-01-01T00:00:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "2",
+      "idUserLoginDetail": 1,
+      "credit": 0,
+      "debit": 1755,
+      "runningBalance": 8245,
+      "idOrderDetail": 1,
+      "createdOn": "2024-01-15T09:30:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "3",
+      "idUserLoginDetail": 1,
+      "credit": 0,
+      "debit": 2602,
+      "runningBalance": 5643,
+      "idOrderDetail": 2,
+      "createdOn": "2024-01-14T14:15:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "4",
+      "idUserLoginDetail": 1,
+      "credit": 0,
+      "debit": 1228.75,
+      "runningBalance": 4414.25,
+      "idOrderDetail": 3,
+      "createdOn": "2024-01-13T11:45:00Z",
+      "createdBy": 1
+    },
+    {
+      "id": "5",
+      "idUserLoginDetail": 1,
+      "credit": 370.5,
+      "debit": 0,
+      "runningBalance": 4784.75,
+      "idOrderDetail": 5,
+      "createdOn": "2024-01-16T13:30:00Z",
+      "createdBy": 1
+    }
+  ],
+  "auditUserLogin": [
+    {
+      "id": "1",
+      "idUserLoginDetail": 1,
+      "sessionId": "session_001",
+      "loginStatus": "Success",
+      "loginDateTime": "2024-01-16T08:00:00Z",
+      "logoutDateTime": null
+    },
+    {
+      "id": "2",
+      "idUserLoginDetail": 1,
+      "sessionId": "session_002",
+      "loginStatus": "Success",
+      "loginDateTime": "2024-01-15T09:00:00Z",
+      "logoutDateTime": "2024-01-15T17:30:00Z"
+    }
+  ],
+  "auditActions": [
+    {
+      "id": "1",
+      "idUserLoginDetail": 1,
+      "userAction": "PORTFOLIO_SUMMARY_VIEW",
+      "startDateTime": "2024-01-16T10:00:00Z",
+      "endDateTime": "2024-01-16T10:05:00Z",
+      "actionDetails": "Viewed portfolio summary with filters"
+    },
+    {
+      "id": "2",
+      "idUserLoginDetail": 1,
+      "userAction": "ORDER_ENTRY",
+      "startDateTime": "2024-01-16T10:30:00Z",
+      "endDateTime": "2024-01-16T10:35:00Z",
+      "actionDetails": "Placed buy order for GOOGL"
+    },
+    {
+      "id": "3",
+      "idUserLoginDetail": 1,
+      "userAction": "TRANSACTION_HISTORY_VIEW",
+      "startDateTime": "2024-01-16T11:00:00Z",
+      "endDateTime": "2024-01-16T11:02:00Z",
+      "actionDetails": "Viewed transaction history"
+    },
+    {
+      "id": "57de",
+      "idUserLoginDetail": 1,
+      "userAction": "PORTFOLIO_SUMMARY_SEARCH",
+      "startDateTime": "2025-06-28T12:09:55.997Z",
+      "endDateTime": "2025-06-28T12:09:55.997Z",
+      "actionDetails": "Searched portfolio with filters: {\"orderRefNo\":\"\",\"securityName\":\"Apple\",\"transactionType\":\"\",\"fromDate\":\"\",\"toDate\":\"\"}"
+    },
+    {
+      "id": "11ad",
+      "idUserLoginDetail": 1,
+      "userAction": "PORTFOLIO_SUMMARY_SEARCH",
+      "startDateTime": "2025-06-28T12:10:04.990Z",
+      "endDateTime": "2025-06-28T12:10:04.990Z",
+      "actionDetails": "Searched portfolio with filters: {\"orderRefNo\":\"\",\"securityName\":\"Apple\",\"transactionType\":\"\",\"fromDate\":\"\",\"toDate\":\"\"}"
+    },
+    {
+      "id": "3fd2",
+      "idUserLoginDetail": 1,
+      "userAction": "PORTFOLIO_SUMMARY_SEARCH",
+      "startDateTime": "2025-06-28T12:10:12.451Z",
+      "endDateTime": "2025-06-28T12:10:12.451Z",
+      "actionDetails": "Searched portfolio with filters: {\"orderRefNo\":\"\",\"securityName\":\"Apple\",\"transactionType\":\"\",\"fromDate\":\"\",\"toDate\":\"\"}"
+    },
+    {
+      "id": "e50a",
+      "idUserLoginDetail": 1,
+      "userAction": "PORTFOLIO_SUMMARY_SEARCH",
+      "startDateTime": "2025-06-28T12:10:20.001Z",
+      "endDateTime": "2025-06-28T12:10:20.001Z",
+      "actionDetails": "Searched portfolio with filters: {\"orderRefNo\":\"\",\"securityName\":\"Apple\",\"transactionType\":\"Sell\",\"fromDate\":\"\",\"toDate\":\"\"}"
+    }
+  ]
+}

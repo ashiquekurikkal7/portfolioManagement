@@ -1,8 +1,11 @@
-// Database and Service Exports
-export { MockDataService, mockData } from './mockDataService';
+// Export database schema constants
 export { DATABASE_SCHEMA, ORDER_STATUS, TRANSACTION_TYPE, USER_STATUS, LOGIN_STATUS, DEFAULT_VALUES, VALIDATION_RULES } from '../constants/databaseSchema';
-export { DemoDataGenerator } from '../utils/demoDataGenerator';
-export * from '../utils/dataUtils';
+
+// Export API Service
+export { apiService as ApiService } from './apiService';
+
+// Keep MockDataService for backward compatibility (can be removed later)
+export { MockDataService } from './mockDataService';
 
 // Re-export commonly used utilities
 export {
@@ -11,18 +14,17 @@ export {
   formatNumber,
   formatDate,
   formatTime,
+  getChangeColor,
   calculatePercentageChange,
   calculateAbsoluteChange,
   getOrderStatusColor,
   getTransactionTypeColor,
-  getChangeColor,
-  calculatePortfolioMetrics,
-  sortPortfolioItems,
-  filterPortfolioItems,
-  generatePortfolioChartData,
   calculatePerformanceMetrics,
   validateOrderData,
   generatePriceMovement,
   debounce,
-  storageUtils
+  storageUtils,
+  calculatePortfolioMetrics,
+  sortPortfolioItems,
+  filterPortfolioItems
 } from '../utils/dataUtils'; 
