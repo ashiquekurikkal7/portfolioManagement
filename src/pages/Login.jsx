@@ -62,6 +62,7 @@ const Login = ({ onLogin }) => {
       return;
     }
 
+
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       
@@ -83,7 +84,7 @@ const Login = ({ onLogin }) => {
       } else {
         setError('Invalid email or password. Use admin@abc.com / password123');
       }
-    } catch (err) {
+    } catch (error) {
       setError('Login failed. Please try again.');
     } finally {
       setLoading(false);
